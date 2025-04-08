@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- SmartSpin Machine setup file -->
+<!-- SpinWorx 2025 -->
+<setup>
+	<Machine>
+		<TotalAxes>4</TotalAxes>
+		<FrontFormerAttached>false</FrontFormerAttached>
+		<TopFormerAttached>false</TopFormerAttached>
+		<CenterAttached>false</CenterAttached>
+		<CanChangeHead>false</CanChangeHead>
+		<BackStopAttached>false</BackStopAttached>
+		<DontHome>false</DontHome>
+		<!-- <Simulate>true</Simulate> -->
+		<Metric>true</Metric>
+		<HoldHeadSignal>true</HoldHeadSignal>
+	</Machine>
+	<axis0>
+		<Servo>Hydraulic</Servo>
+		<!-- <ControllerVirtual>true</ControllerVirtual> -->
+		<IP>192.168.0.1</IP>
+		<Letter>1</Letter>
+		<KP>8</KP>
+		<NullPlus>3300</NullPlus>
+		<NullMinus>-3800</NullMinus>
+		<DisplayMultiplier>200</DisplayMultiplier>
+		<Accel>50</Accel>
+		<Vel>500</Vel>
+		<Tolerance>20</Tolerance>
+		<SwapJogButtons>false</SwapJogButtons>
+		<SwapJogButtonLocations>false</SwapJogButtonLocations>
+	</axis0>
+	<axis1>
+		<Servo>Hydraulic</Servo>
+		<!-- <ControllerVirtual>true</ControllerVirtual> -->
+		<IP>192.168.0.2</IP>
+		<Letter>2</Letter>
+		<KP>8</KP>
+		<NullPlus>2500</NullPlus>
+		<NullMinus>-3300</NullMinus>
+		<DisplayMultiplier>200</DisplayMultiplier>
+		<Accel>50</Accel>
+		<Vel>500</Vel>
+		<Tolerance>20</Tolerance>
+		<SwapJogButtons>false</SwapJogButtons>
+		<SwapJogButtonLocations>false</SwapJogButtonLocations>
+	</axis1>
+	<!-- Left-Right Axis. Home is away from spindle. Negative toward spindle -->
+	<axis2>
+		<Servo>ABB</Servo>
+		<!-- <ControllerVirtual>true</ControllerVirtual> -->
+		<IP>192.168.0.1</IP>
+		<Letter>Z</Letter>
+		<DisplayMultiplier>100</DisplayMultiplier>
+		<Accel>3000</Accel>
+		<Vel>40</Vel>
+		<MaxVelocity>400</MaxVelocity>
+		<JogFactor>20</JogFactor>
+		<SwapJogButtons>true</SwapJogButtons>
+		<SwapJogButtonLocations>true</SwapJogButtonLocations>
+		<MinusLimit>-580</MinusLimit>
+		<PlusLimit>0</PlusLimit>
+		<MoveAfterHome>0</MoveAfterHome>
+		<HomeOffset>0</HomeOffset>
+		<HomePlus>true</HomePlus>
+		<HoldEnableOn>true</HoldEnableOn>
+	</axis2>
+	<!-- In-Out Axis -->
+	<axis3>
+		<Servo>ABB</Servo>
+		<!-- <ControllerVirtual>true</ControllerVirtual> -->
+		<IP>192.168.0.2</IP>
+		<Letter>X</Letter>
+		<DisplayMultiplier>100</DisplayMultiplier>
+		<Accel>3000</Accel>
+		<Vel>40</Vel>
+		<MaxVelocity>400</MaxVelocity>
+		<JogFactor>20</JogFactor>
+		<SwapJogButtons>false</SwapJogButtons>
+		<SwapJogButtonLocations>false</SwapJogButtonLocations>
+		<MinusLimit>-530</MinusLimit>
+		<PlusLimit>10</PlusLimit>
+		<MoveAfterHome>0</MoveAfterHome>
+		<HomeOffset>0</HomeOffset>
+		<HomePlus>true</HomePlus>
+		<HoldEnableOn>true</HoldEnableOn>
+	</axis3>
+</setup>

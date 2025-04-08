@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="SmartSpin.UserControls.TeachSpindleReadout"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SmartSpin.UserControls"
+             mc:Ignorable="d" d:DesignWidth="160" Width="160">
+    <UserControl.Resources>
+        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Focusable" Value="False"/>
+        </Style>
+    </UserControl.Resources>
+    <GroupBox Header="Spindle" FontSize="18">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{Binding SpindleRPM}" HorizontalAlignment="Right" Foreground="Yellow" Margin="5" FontSize="28" Grid.ColumnSpan="2"/>
+            <TextBlock Text="{Binding SpindleLoad}" HorizontalAlignment="Right" Margin="5" Grid.Row="1" Grid.ColumnSpan="2"/>
+            <Button x:Name="btnSpeed" Content="Speed 100" FontSize="18" Margin="2" MinHeight="45" Grid.Row="2" Grid.ColumnSpan="2" Click="btnSpeed_Click"/>
+            <Button x:Name="btnFaster" Content="Faster" FontSize="18" Margin="2" Grid.Row="3" MinHeight="45" PreviewMouseDown="btnJogFaster_PreviewMouseDown" PreviewMouseUp="btnJog_PreviewMouseUp"/>
+            <Button x:Name="btnSlower" Content="Slower" FontSize="18" Margin="2" Grid.Column="1" Grid.Row="3" PreviewMouseDown="btnJogSlower_PreviewMouseDown" PreviewMouseUp="btnJog_PreviewMouseUp" />
+        </Grid>
+    </GroupBox>
+</UserControl>

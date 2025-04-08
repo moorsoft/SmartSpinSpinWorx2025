@@ -1,0 +1,14 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+	 xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+  <Package Name="SmartSpin" Manufacturer="Moorcroft Software" Version="1.0.0.0" UpgradeCode="916378e5-d45d-421f-8649-7ccc0f43adf8">
+    <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
+	  <MediaTemplate EmbedCab="yes" />
+
+	  <WixVariable Id="WixUILicenseRtf" Value="$(var.SolutionDir)\End User License Agreement.rtf" />
+	  <ui:WixUI Id="WixUI_Minimal" />
+
+	  <Feature Id="Main">
+      <ComponentGroupRef Id="AppComponents" />
+    </Feature>
+  </Package>
+</Wix>

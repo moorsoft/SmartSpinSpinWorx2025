@@ -1,0 +1,14 @@
+SmartSpin - This is what is running at Whitehorse.
+SmartSpin Whitehorse 2017 - This has had some slight updates, like the latest MVVMLight libraries, etc
+This is still an all in one exe.  We are unable to use the MoorcroftSoftware.SmartSpin library because the PC runs Windows XP.
+MoorcroftSoftware.SmartSpin is running .NET 4.5.2
+
+5-4-2018
+SmartSpin Pakistan 2018
+Split code to use library MoorcroftSoftware.SmartSpin which contains non-changing code.
+
+30-5-2018
+Upgraded from log4net to NLog for all SmartSpin programs.
+
+
+

@@ -1,0 +1,134 @@
+﻿<UserControl x:Class="SmartSpin.UserControls.Parameters"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SmartSpin.UserControls"
+             xmlns:conv="clr-namespace:SmartSpin.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1000" FontSize="24">
+    <Grid>
+        <TabControl x:Name="tabControl" >
+            <TabItem Header="Machine">
+                <ListView x:Name="dataMachine" Margin="2" ItemsSource="{Binding Parameters.Machine}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <TextBlock Text="{Binding Label}" Width="300" />
+                                <Button Content="{Binding Converter={conv:ParameterConverter}}" Command="{Binding ElementName=dataMachine, Path=DataContext.ChangeParameterCommand}" CommandParameter="{Binding}" Width="200" />
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+            <TabItem Header="Axis 1">
+                <ListView x:Name="dataAxis1" Margin="2" ItemsSource="{Binding Parameters.Axis1}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <TextBlock Text="{Binding Label}" Width="300" />
+                                <Button Content="{Binding Converter={conv:ParameterConverter}}" Command="{Binding ElementName=dataAxis1, Path=DataContext.ChangeParameterCommand}" CommandParameter="{Binding}" Width="200" />
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+            <TabItem Header="Axis 2">
+                <ListView x:Name="dataAxis2" Margin="2" ItemsSource="{Binding Parameters.Axis2}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <TextBlock Text="{Binding Label}" Width="300" />
+                                <Button Content="{Binding Converter={conv:ParameterConverter}}" Command="{Binding ElementName=dataAxis2, Path=DataContext.ChangeParameterCommand}" CommandParameter="{Binding}" Width="200" />
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+            <TabItem Header="Axis Z">
+                <ListView x:Name="dataAxisZ" Margin="2" ItemsSource="{Binding Parameters.AxisZ}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <TextBlock Text="{Binding Label}" Width="300" />
+                                <Button Content="{Binding Converter={conv:ParameterConverter}}" Command="{Binding ElementName=dataAxisZ, Path=DataContext.ChangeParameterCommand}" CommandParameter="{Binding}" Width="200" />
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+            <TabItem Header="Axis X">
+                <ListView x:Name="dataAxisX" Margin="2" ItemsSource="{Binding Parameters.AxisX}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <TextBlock Text="{Binding Label}" Width="300" />
+                                <Button Content="{Binding Converter={conv:ParameterConverter}}" Command="{Binding ElementName=dataAxisX, Path=DataContext.ChangeParameterCommand}" CommandParameter="{Binding}" Width="200" />
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+            <TabItem Header="Axis B" Visibility="{Binding Parameters.AxisB, Converter={conv:ObjectToVisibilityConverter}}">
+                <ListView x:Name="dataAxisB" Margin="2" ItemsSource="{Binding Parameters.AxisB}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <TextBlock Text="{Binding Label}" Width="300" />
+                                <Button Content="{Binding Converter={conv:ParameterConverter}}" Command="{Binding ElementName=dataAxisB, Path=DataContext.ChangeParameterCommand}" CommandParameter="{Binding}" Width="200" />
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+            <TabItem Header="Axis X1"  Visibility="{Binding Parameters.AxisX1, Converter={conv:ObjectToVisibilityConverter}}">
+                <ListView x:Name="dataAxisX1" Margin="2" ItemsSource="{Binding Parameters.AxisX1}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <TextBlock Text="{Binding Label}" Width="300" />
+                                <Button Content="{Binding Converter={conv:ParameterConverter}}" Command="{Binding ElementName=dataAxisX1, Path=DataContext.ChangeParameterCommand}" CommandParameter="{Binding}" Width="200" />
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+            <TabItem Header="Axis Y1" Visibility="{Binding Parameters.AxisY1, Converter={conv:ObjectToVisibilityConverter}}">
+                <ListView x:Name="dataAxisY1" Margin="2" ItemsSource="{Binding Parameters.AxisY1}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <TextBlock Text="{Binding Label}" Width="300" />
+                                <Button Content="{Binding Converter={conv:ParameterConverter}}" Command="{Binding ElementName=dataAxisY1, Path=DataContext.ChangeParameterCommand}" CommandParameter="{Binding}" Width="200" />
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+            <TabItem Header="Axis Z1" Visibility="{Binding Parameters.AxisZ1, Converter={conv:ObjectToVisibilityConverter}}">
+                <ListView x:Name="dataAxisZ1" Margin="2" ItemsSource="{Binding Parameters.AxisZ1}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <TextBlock Text="{Binding Label}" Width="300" />
+                                <Button Content="{Binding Converter={conv:ParameterConverter}}" Command="{Binding ElementName=dataAxisZ1, Path=DataContext.ChangeParameterCommand}" CommandParameter="{Binding}" Width="200" />
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+            <TabItem Header="Spindle">
+                <ListView x:Name="dataAxisS" Margin="2" ItemsSource="{Binding Parameters.Spindle}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <TextBlock Text="{Binding Label}" Width="300" />
+                                <Button Content="{Binding Converter={conv:ParameterConverter}}" Command="{Binding ElementName=dataAxisS, Path=DataContext.ChangeParameterCommand}" CommandParameter="{Binding}" Width="200" />
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

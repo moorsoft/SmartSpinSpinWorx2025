@@ -1,0 +1,472 @@
+﻿<Window x:Class="SmartSpin.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SmartSpin"
+        mc:Ignorable="d"
+        xmlns:vm="clr-namespace:SmartSpin.ViewModel"
+        xmlns:v="clr-namespace:SmartSpin.View"
+        xmlns:b="clr-namespace:SmartSpin.Behaviours"
+        xmlns:usercontrols="clr-namespace:SmartSpin.UserControls"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:conv="clr-namespace:SmartSpin.Converters"
+        Style="{StaticResource {x:Type Window}}"
+        Title="{Binding Title}" Height="735" Width="1024">
+
+    <Window.Resources>
+        <Style x:Key="settingButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Margin" Value="2" />
+            <Setter Property="Height" Value="45" />
+            <Setter Property="Width" Value="65" />
+            <Setter Property="Focusable" Value="False"/>
+        </Style>
+        <Style x:Key="toolButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="Margin" Value="5,5" />
+            <Setter Property="Height" Value="65" />
+            <Setter Property="MinWidth" Value="75" />
+            <Setter Property="Focusable" Value="False"/>
+        </Style>
+        <system:Int32 x:Key="Int0">0</system:Int32>
+        <system:Int32 x:Key="Int1">1</system:Int32>
+        <system:Int32 x:Key="Int2">2</system:Int32>
+        <system:Int32 x:Key="Int3">3</system:Int32>
+        <system:Int32 x:Key="Int4">4</system:Int32>
+        <system:Int32 x:Key="Int5">5</system:Int32>
+        <system:Int32 x:Key="Int6">6</system:Int32>
+        <system:Int32 x:Key="Int7">7</system:Int32>
+        <system:Int32 x:Key="Int8">8</system:Int32>
+        <system:Int32 x:Key="Int9">9</system:Int32>
+        <system:Int32 x:Key="Int10">10</system:Int32>
+        <system:Boolean x:Key="True">true</system:Boolean>
+        <system:Boolean x:Key="False">false</system:Boolean>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TabControl x:Name="tabControl" FontSize="22">
+            <TabItem Header="Run Mode">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ToolBar Background="Transparent">
+                        <Button Command="{Binding OpenCommand}" ToolTip="Open File" Style="{StaticResource toolButton}" >
+                            <StackPanel Orientation="Vertical">
+                                <Image Source="/SmartSpin;component/Resources/open_document_24.png" RenderOptions.BitmapScalingMode="HighQuality" Width="24" />
+                                <TextBlock Margin="3,0,0,0">Open</TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding PlayCommand}" ToolTip="Playback Program" Style="{StaticResource toolButton}" >
+                            <StackPanel Orientation="Vertical">
+                                <Image Source="/SmartSpin;component/Resources/Symbol Green Play.png" RenderOptions.BitmapScalingMode="HighQuality" Width="24" />
+                                <TextBlock Margin="3,0,0,0">Play</TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding StopPlayCommand}" ToolTip="Stop Playback of Program" Style="{StaticResource toolButton}" >
+                            <StackPanel Orientation="Vertical">
+                                <Image Source="/SmartSpin;component/Resources/Symbol Red Stop.png" RenderOptions.BitmapScalingMode="HighQuality" Width="24" />
+                                <TextBlock Margin="3,0,0,0">Stop</TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding StartPosCommand}" ToolTip="Move to Start Position" Style="{StaticResource toolButton}" >
+                            <StackPanel Orientation="Vertical">
+                                <Image Source="/SmartSpin;component/Resources/Navigation Blue Skip to Start.png" RenderOptions.BitmapScalingMode="HighQuality" Width="24" />
+                                <TextBlock Margin="3,0,0,0">Start Pos</TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding HomeCommand}" ToolTip="Move to Home Position" Style="{StaticResource toolButton}" >
+                            <StackPanel Orientation="Vertical">
+                                <Image Source="/SmartSpin;component/Resources/Navigation Blue Skip Backward.png" RenderOptions.BitmapScalingMode="HighQuality" Width="24" />
+                                <TextBlock Margin="3,0,0,0" >Home</TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding ResetErrorCommand}" ToolTip="Reset Drive Error" Style="{StaticResource toolButton}" >
+                            <StackPanel Orientation="Vertical">
+                                <Image Source="/SmartSpin;component/Resources/Symbol Red Error.png" RenderOptions.BitmapScalingMode="HighQuality" Width="24" />
+                                <TextBlock Margin="3,0,0,0">Reset Err</TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding DiagnoseCommand}" ToolTip="Save Diagnostics Report" Style="{StaticResource toolButton}" >
+                            <StackPanel Orientation="Vertical">
+                                <Image Source="/SmartSpin;component/Resources/Symbol Red Question.png" RenderOptions.BitmapScalingMode="HighQuality" Width="24" />
+                                <TextBlock Margin="3,0,0,0">Diagnose</TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding SupportCommand}" ToolTip="Support" Style="{StaticResource toolButton}" >
+                            <StackPanel Orientation="Vertical">
+                                <Image Source="/SmartSpin;component/Resources/Internet Question.png" RenderOptions.BitmapScalingMode="HighQuality" Width="24" />
+                                <TextBlock Margin="3,0,0,0">Support</TextBlock>
+                            </StackPanel>
+                        </Button>
+                    </ToolBar>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" >
+                        <usercontrols:PositionReadout Axis="0" />
+                        <usercontrols:PositionReadout Axis="1"/>
+                        <usercontrols:PositionReadout Axis="2" Visibility="{Binding ZAxisVisible, Converter={conv:BoolToVisibilityConverter}}"/>
+                        <usercontrols:PositionReadout Axis="3" Visibility="{Binding XAxisVisible, Converter={conv:BoolToVisibilityConverter}}"/>
+                        <usercontrols:PositionReadout Axis="4" Visibility="{Binding BAxisVisible, Converter={conv:BoolToVisibilityConverter}}"/>
+                    </StackPanel>
+                    <usercontrols:SpindleReadout Grid.Row="1" HorizontalAlignment="Right"/>
+                    <Border BorderBrush="Silver"  BorderThickness="2" Grid.Row="2" Margin="10">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal" Margin="10">
+                                <TextBlock Text="{Binding PlayingStatus}" Width="240" VerticalAlignment="Center" />
+                                <TextBlock Text="Playing Time"  VerticalAlignment="Center" />
+                                <TextBlock Text="{Binding PlayingTime, StringFormat='{}{0:F1} secs'}" Width="130" Margin="5,0,5,0" VerticalAlignment="Center" />
+                                <TextBlock Text="Parts Counter"  VerticalAlignment="Center" />
+                                <Label Width="100" Margin="8,0" Content="{Binding  PartsCounter}"  VerticalAlignment="Center" HorizontalContentAlignment="Center" Background="Black" />
+                                <Button Content="Change" Command="{Binding ChangePartsCounterCommand}" Width="85" Height="55" Margin="20,0,10,0" Focusable="False"/>
+                                <Button Content="Reset" Command="{Binding ResetPartsCounterCommand}" Width="85" Height="55" Margin="10,0,10,0" Focusable="False"/>
+                            </StackPanel>
+                            <ProgressBar Height="34" Minimum="0" Maximum="{Binding ProgressMaximum}" Value="{Binding ProgressValue}" Margin="10, 0, 10, 10" />
+                        </StackPanel>
+                    </Border>
+                    <Border BorderBrush="Black" Background="Chartreuse" BorderThickness="2" Grid.Row="3" Width="415" Height="100" Visibility="{Binding InCycle, Converter={conv:BoolToVisibilityConverter}}" VerticalAlignment="Top" Margin="10">
+                        <TextBlock Text="Running" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48"/>
+                    </Border>
+                    <Button Grid.Row="3" Content="Center Up" Command="{Binding ManualCentreUpCommand}" Width="130" Height="65" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10, 40, 0, 0" Focusable="False" Visibility="{Binding CentreDeviceAttached, Converter={conv:BoolToVisibilityConverter}}"/>
+                    <Button Grid.Row="4" BorderBrush="Black" Background="Black" BorderThickness="2" Height="80" Command="{Binding EditNoteCommand}" >
+                        <TextBlock Text="{Binding ProgramNote}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24"/>
+                    </Button>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Teach Mode">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ToolBar Background="Transparent">
+                        <Button Command="{Binding NewCommand}" ToolTip="New Program" Style="{StaticResource toolButton}" >
+                            <StackPanel Orientation="Vertical">
+                                <Image Source="/SmartSpin;component/Resources/new_document_24.png" RenderOptions.BitmapScalingMode="HighQuality" Width="24" />
+                                <TextBlock Margin="3,0,0,0">New</TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding SaveCommand}" ToolTip="Save Program" Style="{StaticResource toolButton}" >
+                            <StackPanel Orientation="Vertical">
+                                <Image Source="/SmartSpin;component/Resources/save_24.png" RenderOptions.BitmapScalingMode="HighQuality" Width="24" />
+                                <TextBlock Margin="3,0,0,0">Save</TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding RecordCommand}" ToolTip="Record Program" Style="{StaticResource toolButton}" >
+                            <StackPanel Orientation="Vertical">
+                                <Image Source="/SmartSpin;component/Resources/Symbol Red Sound.png" RenderOptions.BitmapScalingMode="HighQuality" Width="24" />
+                                <TextBlock Margin="3,0,0,0">Record</TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding StopRecordCommand}" ToolTip="Stop Recording" Style="{StaticResource toolButton}" >
+                            <StackPanel Orientation="Vertical">
+                                <Image Source="/SmartSpin;component/Resources/Symbol Red Stop.png" RenderOptions.BitmapScalingMode="HighQuality" Width="24" />
+                                <TextBlock Margin="3,0,0,0">Stop</TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding DeleteMemoryCommand}" ToolTip="Delete Last Memory" Style="{StaticResource toolButton}" >
+                            <StackPanel Orientation="Vertical">
+                                <Image Source="/SmartSpin;component/Resources/Symbol Blue Restrict.png" RenderOptions.BitmapScalingMode="HighQuality" Width="24" />
+                                <TextBlock Margin="3,0,0,0">Del Mem</TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding StartPosCommand}" ToolTip="Move to Start Position" Style="{StaticResource toolButton}" >
+                            <StackPanel Orientation="Vertical">
+                                <Image Source="/SmartSpin;component/Resources/Navigation Blue Skip to Start.png" RenderOptions.BitmapScalingMode="HighQuality" Width="24" />
+                                <TextBlock Margin="3,0,0,0">Start Pos</TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding HomeCommand}" ToolTip="Move to Home Position" Style="{StaticResource toolButton}" >
+                            <StackPanel Orientation="Vertical">
+                                <Image Source="/SmartSpin;component/Resources/Navigation Blue Skip Backward.png" RenderOptions.BitmapScalingMode="HighQuality" Width="24" />
+                                <TextBlock Margin="3,0,0,0">Home</TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding ResetErrorCommand}" ToolTip="Reset Drive Error" Style="{StaticResource toolButton}" >
+                            <StackPanel Orientation="Vertical">
+                                <Image Source="/SmartSpin;component/Resources/Symbol Red Error.png" RenderOptions.BitmapScalingMode="HighQuality" Width="24" />
+                                <TextBlock Margin="3,0,0,0">Reset Err</TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding ParamsCommand}" ToolTip="Access Parameter Settings" Style="{StaticResource toolButton}" >
+                            <StackPanel Orientation="Vertical">
+                                <Image Source="/SmartSpin;component/Resources/Symbol Red Configuration.png" RenderOptions.BitmapScalingMode="HighQuality" Width="24" />
+                                <TextBlock Margin="3,0,0,0">Params</TextBlock>
+                            </StackPanel>
+                        </Button>
+                    </ToolBar>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" >
+                        <usercontrols:TeachPositionReadout Axis="0"/>
+                        <usercontrols:TeachPositionReadout Axis="1"/>
+                        <usercontrols:TeachPositionReadout Axis="2" Visibility="{Binding ZAxisVisible, Converter={conv:BoolToVisibilityConverter}}"/>
+                        <usercontrols:TeachPositionReadout Axis="3" Visibility="{Binding XAxisVisible, Converter={conv:BoolToVisibilityConverter}}"/>
+                        <usercontrols:TeachPositionReadout Axis="4" Visibility="{Binding BAxisVisible, Converter={conv:BoolToVisibilityConverter}}"/>
+                    </StackPanel>
+                    <usercontrols:TeachSpindleReadout Grid.Row="1" HorizontalAlignment="Right"/>
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" >
+                        <GroupBox Header="Roller Head" FontSize="18" Width="160" Visibility="{Binding CanChangeHead, Converter={conv:BoolToVisibilityConverter}}">
+                            <StackPanel Orientation="Vertical">
+                                <Button Content="1" Margin="2" MinHeight="45" Command="{Binding ManualRollerHeadCommand}" CommandParameter="{StaticResource Int1}" Background="{Binding HeadSelected, Converter={conv:ButtonSelectorConverter}, ConverterParameter=1}"/>
+                                <Button Content="2" Margin="2" MinHeight="45" Command="{Binding ManualRollerHeadCommand}" CommandParameter="{StaticResource Int2}" Background="{Binding HeadSelected, Converter={conv:ButtonSelectorConverter}, ConverterParameter=2}"/>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="Back Stop" FontSize="18" Width="160" Visibility="{Binding BackStopAttached, Converter={conv:BoolToVisibilityConverter}}">
+                            <StackPanel Orientation="Vertical">
+                                <Button Content="Cycle" Margin="2" MinHeight="45" Command="{Binding ManualBackStopCycleCommand}" />
+                                <Button Content="In" Margin="2" MinHeight="45" Command="{Binding ManualBackStopInCommand}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="Front Former" FontSize="18" Width="160" Visibility="{Binding FrontFormerAttached, Converter={conv:BoolToVisibilityConverter}}">
+                            <StackPanel Orientation="Vertical">
+                                <Button Content="Cycle" Margin="2" MinHeight="45" Command="{Binding ManualFrontFormerCycleCommand}" />
+                                <Button Content="Teach" Margin="2" MinHeight="45" Command="{Binding ManualFrontFormerTeachCommand}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="Top Former" FontSize="18" Width="160" Visibility="{Binding TopFormerAttached, Converter={conv:BoolToVisibilityConverter}}">
+                            <StackPanel Orientation="Vertical">
+                                <Button Content="Cycle" Margin="2" MinHeight="45" Command="{Binding ManualTopFormerCycleCommand}" />
+                                <Button Content="Teach" Margin="2" MinHeight="45" Command="{Binding ManualTopFormerTeachCommand}" />
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="Centre Device" FontSize="18" Width="160" Visibility="{Binding CentreDeviceAttached, Converter={conv:BoolToVisibilityConverter}}">
+                            <StackPanel Orientation="Vertical">
+                                <Button Content="Up" Command="{Binding ManualCentreUpCommand}" Margin="2" MinHeight="45" Focusable="False"/>
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                    <GroupBox Grid.Row="2" Header="Spindle" FontSize="18" HorizontalAlignment="Right" Width="160">
+                        <StackPanel Orientation="Vertical">
+                            <Button Content="Start" Margin="2" MinHeight="45" Command="{Binding ManualSpindleStartCommand}"/>
+                            <Button Content="Stop" Margin="2" MinHeight="45" Command="{Binding ManualSpindleStopCommand}"/>
+                            <Button Content="Reverse" Margin="2" MinHeight="45" Command="{Binding ManualSpindleReverseCommand}" Background="{Binding IsSpindleReversed, Converter={conv:BButtonSelectorConverter}, ConverterParameter=true}"/>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Grid.Row="3" Header="Recording Status" FontSize="18" Margin="5">
+                        <StackPanel Orientation="Horizontal" Background="LightSkyBlue" Margin="5">
+                            <Label Content="Next Memory to Record" Foreground="Black" Margin="10,5"/>
+                            <Label Content="{Binding NextMemoryToRecord}" Background="Black" Margin="10,5" Width="30" HorizontalContentAlignment="Center"/>
+                            <Label Content="Samples Recorded" Foreground="Black" Margin="10,5"/>
+                            <Label Content="{Binding SamplesRecorded}" ContentStringFormat="{}{0:F1} secs" Background="Black" Margin="10,5" Width="120" HorizontalContentAlignment="Center" />
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Settings">
+                <StackPanel Orientation="Vertical">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Button Command="{Binding ChangeUnitsCommand}" Content="{Binding UnitsSelectedName}" Style="{StaticResource MyButtonStyle}" Margin="10" Width="150" />
+                        <Border Grid.Row="1" BorderBrush="Silver" BorderThickness="1" Margin="10,4" HorizontalAlignment="Left" Visibility="{Binding CentreDeviceAttached, Converter={conv:BoolToVisibilityConverter}}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Use Centre Device" VerticalAlignment="Center" Margin="10" Width="200"/>
+                                <Button Content="Yes"  Command="{Binding SelectUseCentreCommand}" CommandParameter="{StaticResource True}" Style="{StaticResource MyButtonStyle}" Background="{Binding UseCentreDevice, Converter={conv:BButtonSelectorConverter}, ConverterParameter=true}" />
+                                <Button Content="No" Command="{Binding SelectUseCentreCommand}" CommandParameter="{StaticResource False}" Style="{StaticResource MyButtonStyle}" Background="{Binding UseCentreDevice, Converter={conv:BButtonSelectorConverter}, ConverterParameter=false}"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Row="2" BorderBrush="Silver" BorderThickness="1" Margin="10,4" HorizontalAlignment="Left" Visibility="{Binding BackStopAttached, Converter={conv:BoolToVisibilityConverter}}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Use Back Stop" VerticalAlignment="Center" Margin="10" Width="200"/>
+                                <Button Content="Yes" Command="{Binding SelectUseBackStopCommand}" CommandParameter="{StaticResource True}" Style="{StaticResource MyButtonStyle}" Background="{Binding UseBackStopDevice, Converter={conv:BButtonSelectorConverter}, ConverterParameter=true}" />
+                                <Button Content="No" Command="{Binding SelectUseBackStopCommand}" CommandParameter="{StaticResource False}" Style="{StaticResource MyButtonStyle}" Background="{Binding UseBackStopDevice, Converter={conv:BButtonSelectorConverter}, ConverterParameter=false}"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Memories">
+                <Grid>
+                    <StackPanel Orientation="Vertical">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Content="Overall" Command="{Binding SelectSettingsCommand}" CommandParameter="{StaticResource Int0}" Style="{StaticResource MyButtonStyle}" Background="{Binding SettingsSelected, Converter={conv:ButtonSelectorConverter}, ConverterParameter=0}" />
+                            <Button Content="Mem 1" Command="{Binding SelectSettingsCommand}" CommandParameter="{StaticResource Int1}" Style="{StaticResource MyButtonStyle}" Background="{Binding SettingsSelected, Converter={conv:ButtonSelectorConverter}, ConverterParameter=1}" IsEnabled="{Binding MemoriesUsed, Converter={conv:MemoryEnabledConverter}, ConverterParameter=1}" Grid.Column="1"/>
+                            <Button Content="Mem 2" Command="{Binding SelectSettingsCommand}" CommandParameter="{StaticResource Int2}" Style="{StaticResource MyButtonStyle}" Background="{Binding SettingsSelected, Converter={conv:ButtonSelectorConverter}, ConverterParameter=2}" IsEnabled="{Binding MemoriesUsed, Converter={conv:MemoryEnabledConverter}, ConverterParameter=2}" Grid.Column="2"/>
+                            <Button Content="Mem 3" Command="{Binding SelectSettingsCommand}" CommandParameter="{StaticResource Int3}" Style="{StaticResource MyButtonStyle}" Background="{Binding SettingsSelected, Converter={conv:ButtonSelectorConverter}, ConverterParameter=3}" IsEnabled="{Binding MemoriesUsed, Converter={conv:MemoryEnabledConverter}, ConverterParameter=3}" Grid.Column="3"/>
+                            <Button Content="Mem 4" Command="{Binding SelectSettingsCommand}" CommandParameter="{StaticResource Int4}" Style="{StaticResource MyButtonStyle}" Background="{Binding SettingsSelected, Converter={conv:ButtonSelectorConverter}, ConverterParameter=4}" IsEnabled="{Binding MemoriesUsed, Converter={conv:MemoryEnabledConverter}, ConverterParameter=4}" Grid.Column="4"/>
+                            <Button Content="Mem 5" Command="{Binding SelectSettingsCommand}" CommandParameter="{StaticResource Int5}" Style="{StaticResource MyButtonStyle}" Background="{Binding SettingsSelected, Converter={conv:ButtonSelectorConverter}, ConverterParameter=5}" IsEnabled="{Binding MemoriesUsed, Converter={conv:MemoryEnabledConverter}, ConverterParameter=5}" Grid.Column="5"/>
+                            <Button Content="Mem 6" Command="{Binding SelectSettingsCommand}" CommandParameter="{StaticResource Int6}" Style="{StaticResource MyButtonStyle}" Background="{Binding SettingsSelected, Converter={conv:ButtonSelectorConverter}, ConverterParameter=6}" IsEnabled="{Binding MemoriesUsed, Converter={conv:MemoryEnabledConverter}, ConverterParameter=6}" Grid.Column="6"/>
+                            <Button Content="Mem 7" Command="{Binding SelectSettingsCommand}" CommandParameter="{StaticResource Int7}" Style="{StaticResource MyButtonStyle}" Background="{Binding SettingsSelected, Converter={conv:ButtonSelectorConverter}, ConverterParameter=7}" IsEnabled="{Binding MemoriesUsed, Converter={conv:MemoryEnabledConverter}, ConverterParameter=7}" Grid.Column="7"/>
+                            <Button Content="Mem 8" Command="{Binding SelectSettingsCommand}" CommandParameter="{StaticResource Int8}" Style="{StaticResource MyButtonStyle}" Background="{Binding SettingsSelected, Converter={conv:ButtonSelectorConverter}, ConverterParameter=8}" IsEnabled="{Binding MemoriesUsed, Converter={conv:MemoryEnabledConverter}, ConverterParameter=8}" Grid.Column="8"/>
+                            <Button Content="Mem 9" Command="{Binding SelectSettingsCommand}" CommandParameter="{StaticResource Int9}" Style="{StaticResource MyButtonStyle}" Background="{Binding SettingsSelected, Converter={conv:ButtonSelectorConverter}, ConverterParameter=9}" IsEnabled="{Binding MemoriesUsed, Converter={conv:MemoryEnabledConverter}, ConverterParameter=9}" Grid.Column="9"/>
+                            <Button Content="Mem 10" Command="{Binding SelectSettingsCommand}" CommandParameter="{StaticResource Int10}" Style="{StaticResource MyButtonStyle}" Background="{Binding SettingsSelected, Converter={conv:ButtonSelectorConverter}, ConverterParameter=10}" IsEnabled="{Binding MemoriesUsed, Converter={conv:MemoryEnabledConverter}, ConverterParameter=10}" Grid.Column="10"/>
+                        </Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Memory Size" Margin="20,0,0,0" VerticalAlignment="Center" />
+                                <TextBlock Text="{Binding SettingTotalPlaybackTime, StringFormat='{}{0:F1} secs'}" Foreground="Yellow" Margin="5,0,0,0" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <Border Grid.Row="1" BorderBrush="Silver" BorderThickness="1" Margin="10,4" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Playback" VerticalAlignment="Center" Margin="10" Width="150"/>
+                                    <TextBlock Text="{Binding SettingPlaybackSpeed}" Foreground="Yellow" VerticalAlignment="Center" Width="50"/>
+                                    <TextBlock Text="%"  VerticalAlignment="Center" Width="50"/>
+                                    <Button Command="{Binding PlaybackSpeedUpCommand}" Style="{StaticResource settingButton}">
+                                        <Image Source="/SmartSpin;component/Resources/arrow-0901.png" RenderOptions.BitmapScalingMode="HighQuality" Width="24" />
+                                    </Button>
+                                    <Button Command="{Binding PlaybackSpeedDownCommand}" Style="{StaticResource settingButton}">
+                                        <Image Source="/SmartSpin;component/Resources/arrow-2701.png" RenderOptions.BitmapScalingMode="HighQuality" Width="24" />
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+                            <Border Grid.Row="2" BorderBrush="Silver" BorderThickness="1" Margin="10,4" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Spindle Speed" VerticalAlignment="Center" Margin="10" Width="150"/>
+                                    <TextBlock Text="{Binding SettingSpindleSpeed}" Foreground="Yellow" VerticalAlignment="Center" Width="50"/>
+                                    <TextBlock Text="RPM"  VerticalAlignment="Center" Width="50"/>
+                                    <Button Style="{StaticResource settingButton}" b:MouseBehaviour.MouseDownCommand="{Binding SpindleOffsetUpDownCommand}" b:MouseBehaviour.MouseUpCommand="{Binding SpindleOffsetUpCommand}">
+                                        <Image Source="/SmartSpin;component/Resources/arrow-0901.png" RenderOptions.BitmapScalingMode="HighQuality" Width="24" />
+                                    </Button>
+                                    <Button Style="{StaticResource settingButton}" b:MouseBehaviour.MouseDownCommand="{Binding SpindleOffsetDownDownCommand}" b:MouseBehaviour.MouseUpCommand="{Binding SpindleOffsetUpCommand}">
+                                        <Image Source="/SmartSpin;component/Resources/arrow-2701.png" RenderOptions.BitmapScalingMode="HighQuality" Width="24" />
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Grid.Row="3" BorderBrush="Silver" BorderThickness="1" Margin="10,4" HorizontalAlignment="Left"  Visibility="{Binding FormerAttached, Converter={conv:BoolToVisibilityConverter}}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Former Cycle" VerticalAlignment="Center" Margin="10" Width="150"/>
+                                    <TextBlock Text="{Binding SettingFormerCycle}" Foreground="Yellow" VerticalAlignment="Center" Width="50"/>
+                                    <TextBlock Text=""  VerticalAlignment="Center" Width="50"/>
+                                    <Button Command="{Binding FormerCycleUpCommand}" Style="{StaticResource settingButton}">
+                                        <Image Source="/SmartSpin;component/Resources/arrow-0901.png" RenderOptions.BitmapScalingMode="HighQuality" Width="24" />
+                                    </Button>
+                                    <Button Command="{Binding FormerCycleDownCommand}" Style="{StaticResource settingButton}">
+                                        <Image Source="/SmartSpin;component/Resources/arrow-2701.png" RenderOptions.BitmapScalingMode="HighQuality" Width="24" />
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Grid.Column="1" BorderBrush="Silver" BorderThickness="1" Margin="10,4">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Axis 1 Offset" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBlock Text="{Binding SettingOffset1, Converter={conv:UnitsFormatConverter}}" Foreground="Yellow" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" MinWidth="70"/>
+                                    <TextBlock Text="mm"  VerticalAlignment="Center" Margin="10"/>
+                                    <Button Content="{Binding ButtonLabelPlus1}" Command="{Binding Axis1OffsetDownCommand}" Style="{StaticResource settingButton}"/>
+                                    <Button Content="{Binding ButtonLabelMinus1}" Command="{Binding Axis1OffsetUpCommand}" Style="{StaticResource settingButton}"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="1" BorderBrush="Silver" BorderThickness="1" Margin="10,4">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Axis 2 Offset" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBlock Text="{Binding SettingOffset2, Converter={conv:UnitsFormatConverter}}" Foreground="Yellow" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" MinWidth="70"/>
+                                    <TextBlock Text="mm"  VerticalAlignment="Center" Margin="10"/>
+                                    <Button Content="{Binding ButtonLabelPlus2}" Command="{Binding Axis2OffsetDownCommand}" Style="{StaticResource settingButton}"/>
+                                    <Button Content="{Binding ButtonLabelMinus2}" Command="{Binding Axis2OffsetUpCommand}" Style="{StaticResource settingButton}"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="2" BorderBrush="Silver" BorderThickness="1" Margin="10,4" Visibility="{Binding ZAxisVisible, Converter={conv:BoolToVisibilityConverter}}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Axis Z Offset" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBlock Text="{Binding SettingOffsetZ, Converter={conv:UnitsFormatConverter}}" Foreground="Yellow" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" MinWidth="70"/>
+                                    <TextBlock Text="mm"  VerticalAlignment="Center" Margin="10"/>
+                                    <Button Content="{Binding ButtonLabelPlusZ}" Command="{Binding AxisZOffsetDownCommand}" Style="{StaticResource settingButton}"/>
+                                    <Button Content="{Binding ButtonLabelMinusZ}" Command="{Binding AxisZOffsetUpCommand}" Style="{StaticResource settingButton}"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="3" BorderBrush="Silver" BorderThickness="1" Margin="10,4" Visibility="{Binding XAxisVisible, Converter={conv:BoolToVisibilityConverter}}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Axis X Offset" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBlock Text="{Binding SettingOffsetX, Converter={conv:UnitsFormatConverter}}" Foreground="Yellow" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" MinWidth="70"/>
+                                    <TextBlock Text="mm"  VerticalAlignment="Center" Margin="10"/>
+                                    <Button Content="{Binding ButtonLabelPlusX}" Command="{Binding AxisXOffsetDownCommand}" Style="{StaticResource settingButton}"/>
+                                    <Button Content="{Binding ButtonLabelMinusX}" Command="{Binding AxisXOffsetUpCommand}" Style="{StaticResource settingButton}"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Grid.Column="1" Grid.Row="4" BorderBrush="Silver" BorderThickness="1" Margin="10,4" Visibility="{Binding BAxisVisible, Converter={conv:BoolToVisibilityConverter}}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Axis B Offset" VerticalAlignment="Center" Margin="10"/>
+                                    <TextBlock Text="{Binding SettingOffsetB, StringFormat={}{0:F2}}" Foreground="Yellow" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10" MinWidth="70"/>
+                                    <TextBlock Text="deg"  VerticalAlignment="Center" Margin="10"/>
+                                    <Button Content="{Binding ButtonLabelPlusB}" Command="{Binding AxisBOffsetDownCommand}" Style="{StaticResource settingButton}"/>
+                                    <Button Content="{Binding ButtonLabelMinusB}" Command="{Binding AxisBOffsetUpCommand}" Style="{StaticResource settingButton}"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Former">
+                <!--<usercontrols:FormerTeach></usercontrols:FormerTeach>-->
+            </TabItem>
+            <TabItem Header="Params" Visibility="{Binding ParametersVisible, Converter={conv:BoolToVisibilityConverter}}">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Tune Axis 1" Command="{Binding TuneAxis1Command}" Margin="5" Padding="10" />
+                        <Button Content="Save VFF Table 1" Command="{Binding SaveVFFTable1Command}" Margin="5" Padding="10" />
+                        <Button Content="Tune Axis 2" Command="{Binding TuneAxis2Command}" Margin="5" Padding="10"  />
+                        <Button Content="Save VFF Table 2" Command="{Binding SaveVFFTable2Command}" Margin="5" Padding="10"  />
+                        <Button Content="Re-Load VFF Tables" Command="{Binding ReloadVFFTablesCommand}" Margin="5" Padding="10"  />
+                    </StackPanel>
+                    <usercontrols:Parameters>
+                    </usercontrols:Parameters>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Diag" Visibility="{Binding ParametersVisible, Converter={conv:BoolToVisibilityConverter}}">
+                <Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Log" Visibility="{Binding ParametersVisible, Converter={conv:BoolToVisibilityConverter}}">
+                <Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Shutdown">
+                <Grid>
+                    <Border Margin="20,4" HorizontalAlignment="Center" VerticalAlignment="Center" PreviewMouseDown="Shutdown_PreviewMouseDown">
+                        <Image Source="/SmartSpin;component/Resources/PowerOff.png" RenderOptions.BitmapScalingMode="HighQuality" Width="256"/>
+                    </Border>
+                    <StackPanel Margin="20" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                        <Label Name="lblAppName" Content="Pipe Bender" />
+                        <Label Name="lblAppVersion" Content="Version" />
+                        <Label Name="lblAppCopyright" Content="Copyright" />
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <StatusBar Grid.Row="1" FontSize="24" Height="35" >
+            <StatusBarItem Content="{Binding StatusLabel}" VerticalAlignment="Top"/>
+            <StatusBarItem Content="{Binding LoopTime}" VerticalAlignment="Top"/>
+        </StatusBar>
+
+    </Grid>
+</Window>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" 
+           Name="Smart Spin Setup" 
+           Language="1033" 
+           Version="1.0.2.0" 
+           Manufacturer="Moorcroft Software" 
+           UpgradeCode="dadacaa2-0adf-4d9d-8afb-e73943e3a1a6">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of Smart Spin is already installed." />
+		<MediaTemplate EmbedCab="yes" />
+
+    <WixVariable Id="WixUILicenseRtf" Value="$(var.SolutionDir)\End User License Agreement.rtf" />
+
+    <Property Id="MYAPPPATH"><![CDATA[C:\SmartSpin\]]></Property>
+
+    <Feature Id="ProductFeature" Title="Smart Spin" Level="1" Absent="disallow">
+			<ComponentGroupRef Id="ProductComponents" />
+		</Feature>
+
+    <Icon Id="SmartSpin.ico" SourceFile="$(var.SolutionDir)SmartSpin\SmartSpin.ico" />
+    <Property Id="ARPPRODUCTICON" Value="SmartSpin.ico" />
+
+    <UIRef Id="WixUI_Minimal"/>
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="MYAPPPATH" Name=".">
+        <Component Id="CMP_SmartSpin" Guid="{46682A36-10AF-4CEC-B37C-C88BC2ABC14F}">
+          <File Id="SmartSpin.exe" Source="$(var.SmartSpin.TargetDir)SmartSpin.exe" KeyPath="yes" />
+          <File Id="SmartSpin.pdb" Source="$(var.SmartSpin.TargetDir)SmartSpin.pdb" />
+          <File Id="SmartSpin.exe.config" Source="$(var.SmartSpin.TargetDir)SmartSpin.exe.config" />
+          <File Id="AxInterop.MintControls_5852Lib.dll" Source="$(var.SmartSpin.TargetDir)AxInterop.MintControls_5852Lib.dll" />
+          <File Id="Interop.MintControls_5852Lib.dll" Source="$(var.SmartSpin.TargetDir)Interop.MintControls_5852Lib.dll" />
+          <File Id="CommonServiceLocator.dll" Source="$(var.SmartSpin.TargetDir)CommonServiceLocator.dll" />
+          <File Id="GalaSoft.MvvmLight.dll" Source="$(var.SmartSpin.TargetDir)GalaSoft.MvvmLight.dll" />
+          <File Id="GalaSoft.MvvmLight.pdb" Source="$(var.SmartSpin.TargetDir)GalaSoft.MvvmLight.pdb" />
+          <File Id="GalaSoft.MvvmLight.Extras.dll" Source="$(var.SmartSpin.TargetDir)GalaSoft.MvvmLight.Extras.dll" />
+          <File Id="GalaSoft.MvvmLight.Extras.pdb" Source="$(var.SmartSpin.TargetDir)GalaSoft.MvvmLight.Extras.pdb" />
+          <File Id="GalaSoft.MvvmLight.Platform.dll" Source="$(var.SmartSpin.TargetDir)GalaSoft.MvvmLight.Platform.dll" />
+          <File Id="GalaSoft.MvvmLight.Platform.pdb" Source="$(var.SmartSpin.TargetDir)GalaSoft.MvvmLight.Platform.pdb" />
+          <File Id="MoorcroftSoftware.SmartSpin.dll" Source="$(var.SmartSpin.TargetDir)MoorcroftSoftware.SmartSpin.dll" />
+          <File Id="MoorcroftSoftware.SmartSpin.pdb" Source="$(var.SmartSpin.TargetDir)MoorcroftSoftware.SmartSpin.pdb" />
+          <File Id="SharpDX.DirectInput.dll" Source="$(var.SmartSpin.TargetDir)SharpDX.DirectInput.dll" />
+          <File Id="SharpDX.DirectInput.pdb" Source="$(var.SmartSpin.TargetDir)SharpDX.DirectInput.pdb" />
+          <File Id="SharpDX.dll" Source="$(var.SmartSpin.TargetDir)SharpDX.dll" />
+          <File Id="SharpDX.pdb" Source="$(var.SmartSpin.TargetDir)SharpDX.pdb" />
+          <File Id="System.ValueTuple.dll" Source="$(var.SmartSpin.TargetDir)System.ValueTuple.dll" />
+          <File Id="System.Windows.Interactivity.dll" Source="$(var.SmartSpin.TargetDir)System.Windows.Interactivity.dll" />
+
+          <File Id="setup.xml" Source="$(var.SmartSpin.TargetDir)setup.xml" />
+          <File Id="NLog.config" Source="$(var.SmartSpin.TargetDir)NLog.config" />
+          <File Id="NLog.dll" Source="$(var.SmartSpin.TargetDir)NLog.dll" />
+        </Component>
+        <Directory Id="DirLogs" Name="Logs">
+          <Component Id="ComLogs" Guid="{9EFCFDB2-CB47-4E2F-9849-8A1D4A7203C9}" >
+            <CreateFolder />
+            <RemoveFile Id="LogsFiles" Name="*.*" On="uninstall"/>
+            <RemoveFolder Id="GuidFolders" On="uninstall"/>
+          </Component>
+        </Directory>
+      </Directory>
+      <Directory Id="DesktopFolder" Name="Desktop">
+        <Component Id="CMP_DesktopShortcut"  Guid="{CB4947DC-253B-4756-A8E9-18D3D690406E}" >
+          <CreateFolder/>
+          <Shortcut Id="ApplicationDesktopShortcut" Name="SmartSpin" Directory="DesktopFolder" Target="[MYAPPPATH]SmartSpin.exe" Description="SmartSpin" Icon="SmartSpin.ico" />
+          <RegistryValue Root="HKCU" Key="Software\MoorcroftSoftware\SmartSpin" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+        </Component>
+      </Directory>
+      <Directory Id="StartupFolder" Name="StartUp">
+        <Component Id="CMP_StartupShortcut"  Guid="{4891F10F-ED59-42ED-B65B-665AC76CE745}" >
+          <CreateFolder/>
+          <Shortcut Id="ApplicationStartupShortcut" Name="SmartSpin" Directory="StartupFolder" Target="[MYAPPPATH]SmartSpin.exe" Description="SmartSpin" Icon="SmartSpin.ico" />
+          <RegistryValue Root="HKCU" Key="Software\MoorcroftSoftware\SmartSpinStartup" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+        </Component>
+      </Directory>
+
+    </Directory>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="MYAPPPATH">
+      <ComponentRef Id="CMP_SmartSpin" />
+      <ComponentRef Id="CMP_DesktopShortcut" />
+      <ComponentRef Id="CMP_StartupShortcut" />
+      <ComponentRef Id="ComLogs"/>
+    </ComponentGroup>
+  </Fragment>
+</Wix>

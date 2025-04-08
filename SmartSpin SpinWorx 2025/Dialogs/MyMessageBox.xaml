@@ -1,0 +1,25 @@
+﻿<Window x:Class="SmartSpin.Dialogs.MyMessageBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MyMessageBox" Width="700" Background="{StaticResource WindowBackgroundBrush}"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="ToolWindow" ShowInTaskbar="False" ResizeMode="NoResize" SizeToContent="Height" FontSize="20">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Image Name="imgIcon" HorizontalAlignment="Left" Stretch="None" VerticalAlignment="Center" Margin="10" />
+        <TextBox Margin="10" Name="txtMessage" TextWrapping="Wrap" VerticalContentAlignment="Center" Grid.Column="1" />
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Name="btnOk" Content="Ok" HorizontalAlignment="Center" Margin="10,5" Padding="30,15" Click="btnOk_Click" Visibility="Visible" />
+            <Button Name="btnCancel" Content="Cancel" HorizontalAlignment="Center" Margin="10,5" Padding="30,15" Click="btnCancel_Click" />
+            <Button Name="btnYes" Content="Yes" HorizontalAlignment="Center" Margin="10,5" Padding="30,15" Click="btnYes_Click" />
+            <Button Name="btnNo" Content="No" HorizontalAlignment="Center" Margin="10,5" Padding="30,15" Click="btnNo_Click" />
+        </StackPanel>
+    </Grid>
+</Window>

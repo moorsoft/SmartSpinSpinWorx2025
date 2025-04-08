@@ -1,0 +1,205 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+	  <Company>Moorcroft Software</Company>
+	  <Copyright>Copyright ©  2000-2025 Moorcroft Software</Copyright>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>SmartSpin.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Update="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="setup.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="SmartSpin.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Web System.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\arrow-090.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\arrow-270.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\arrow-0901.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\arrow-2701.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ArrowDown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ArrowLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ArrowRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ArrowUp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\CancelHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\CopyHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\CutHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DeleteHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Internet Question.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Navigation Blue Skip Backward.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Navigation Blue Skip to Start.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\New.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\new_document_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\NewFolderHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\open_document_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\openHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\PasteHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\RenameFolderHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\save_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\saveHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Symbol Blue Redo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Symbol Blue Restrict.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Symbol Green Play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Symbol Red Configuration.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Symbol Red Error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Symbol Red Question.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Symbol Red Sound.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Symbol Red Stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="SmartSpinVFF1.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmartSpinVFF0.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\PowerOff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Messages\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="MintControls_5864Lib">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>99dc4a45-96fb-4358-ad7d-e233eccae41a</Guid>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.3" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.3" />
+    <PackageReference Include="NLog">
+      <Version>5.4.0</Version>
+    </PackageReference>
+    <PackageReference Include="NLog.Extensions.Logging" Version="5.4.0" />
+    <PackageReference Include="System.Management" Version="9.0.3" />
+  </ItemGroup>
+</Project>

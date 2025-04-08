@@ -1,0 +1,200 @@
+﻿<UserControl x:Class="SmartSpin.UserControls.WPFKeyBoard"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <StackPanel>
+        <StackPanel.Resources>
+            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Template" Value="{DynamicResource ButtonTemplate}" />
+                <Setter Property="Margin" Value="4" />
+                <Setter Property="Padding" Value="10,10" />
+                <Setter Property="Focusable" Value="False"/>
+            </Style>
+        </StackPanel.Resources>
+        <Grid>
+                <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Name="btnESC" Click="ESC_Click">ESC</Button>
+            <Button Grid.Column="1" Name="btnF1" Click="btnAlphaNumeric_Click" Tag="90">F1</Button>
+            <Button Grid.Column="2" Name="btnF2" Click="btnAlphaNumeric_Click" Tag="91">F2</Button>
+            <Button Grid.Column="3" Name="btnF3" Click="btnAlphaNumeric_Click" Tag="92">F3</Button>
+            <Button Grid.Column="4" Name="btnF4" Click="btnAlphaNumeric_Click" Tag="93">F4</Button>
+            <Button Grid.Column="5" Name="btnF5" Click="btnAlphaNumeric_Click" Tag="94">F5</Button>
+            <Button Grid.Column="6" Name="btnF6" Click="btnAlphaNumeric_Click" Tag="95">F6</Button>
+            <Button Grid.Column="7" Name="btnF7" Click="btnAlphaNumeric_Click" Tag="96">F7</Button>
+            <Button Grid.Column="8" Name="btnF8" Click="btnAlphaNumeric_Click" Tag="97">F8</Button>
+            <Button Grid.Column="9" Name="btnF9" Click="btnAlphaNumeric_Click" Tag="98">F9</Button>
+            <Button Grid.Column="10" Name="btnF10" Click="btnAlphaNumeric_Click" Tag="99">F10</Button>
+            <Button Grid.Column="11" Name="btnF11" Click="btnAlphaNumeric_Click" Tag="100">F11</Button>
+            <Button Grid.Column="12" Name="btnF12" Click="btnAlphaNumeric_Click" Tag="101">F12</Button>
+            <Button Grid.Column="13" Name="btnHome" Click="btnAlphaNumeric_Click" Tag="22">Home</Button>
+            <Button Grid.Column="14" Name="btnEnd" Click="btnAlphaNumeric_Click" Tag="21">End</Button>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition Width="1.2*"/>
+            </Grid.ColumnDefinitions>
+            <Button Name="btnSingleQuote" Click="btnAlphaNumeric_Click">`</Button>
+            <Button Grid.Column="1" Name="btn1" Click="btnAlphaNumeric_Click">1</Button>
+            <Button Grid.Column="2" Name="btn2" Click="btnAlphaNumeric_Click">2</Button>
+            <Button Grid.Column="3" Name="btn3" Click="btnAlphaNumeric_Click">3</Button>
+            <Button Grid.Column="4" Name="btn4" Click="btnAlphaNumeric_Click">4</Button>
+            <Button Grid.Column="5" Name="btn5" Click="btnAlphaNumeric_Click">5</Button>
+            <Button Grid.Column="6" Name="btn6" Click="btnAlphaNumeric_Click">6</Button>
+            <Button Grid.Column="7" Name="btn7" Click="btnAlphaNumeric_Click">7</Button>
+            <Button Grid.Column="8" Name="btn8" Click="btnAlphaNumeric_Click">8</Button>
+            <Button Grid.Column="9" Name="btn9" Click="btnAlphaNumeric_Click">9</Button>
+            <Button Grid.Column="10" Name="btn0" Click="btnAlphaNumeric_Click">0</Button>
+            <Button Grid.Column="11" Name="btnDash" Click="btnAlphaNumeric_Click">-</Button>
+            <Button Grid.Column="12" Name="btnEquals" Click="btnAlphaNumeric_Click">=</Button>
+            <Button Grid.Column="13" Name="btnBackSpace" Click="btnAlphaNumeric_Click" Tag="2">BS</Button>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.1*"/>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Name="btnTab" Click="btnAlphaNumeric_Click" Tag="3">Tab</Button>
+            <Button Grid.Column="1" Name="btnQ" Click="btnAlphaNumeric_Click">Q</Button>
+            <Button Grid.Column="2" Name="btnW" Click="btnAlphaNumeric_Click">W</Button>
+            <Button Grid.Column="3" Name="btnE" Click="btnAlphaNumeric_Click">E</Button>
+            <Button Grid.Column="4" Name="btnR" Click="btnAlphaNumeric_Click">R</Button>
+            <Button Grid.Column="5" Name="btnT" Click="btnAlphaNumeric_Click">T</Button>
+            <Button Grid.Column="6" Name="btnY" Click="btnAlphaNumeric_Click">Y</Button>
+            <Button Grid.Column="7" Name="btnU" Click="btnAlphaNumeric_Click">U</Button>
+            <Button Grid.Column="8" Name="btnI" Click="btnAlphaNumeric_Click">I</Button>
+            <Button Grid.Column="9" Name="btnO" Click="btnAlphaNumeric_Click">O</Button>
+            <Button Grid.Column="10" Name="btnP" Click="btnAlphaNumeric_Click">P</Button>
+            <Button Grid.Column="11" Name="btnOpenSquare" Click="btnAlphaNumeric_Click">[</Button>
+            <Button Grid.Column="12" Name="btnCloseSquare" Click="btnAlphaNumeric_Click">]</Button>
+            <Button Grid.Column="13" Name="btnForwardSlash" Click="btnAlphaNumeric_Click">\</Button>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.2*"/>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition Width="1.8*"/>
+            </Grid.ColumnDefinitions>
+            <ToggleButton Name="btnCapsLock" Tag="20" Checked="CapsLock_Click" Unchecked="CapsLock_Click" IsChecked="False" Margin="4">Cap L</ToggleButton>
+            <Button Grid.Column="1" Name="btnA" Click="btnAlphaNumeric_Click">A</Button>
+            <Button Grid.Column="2" Name="btnS" Click="btnAlphaNumeric_Click">S</Button>
+            <Button Grid.Column="3" Name="btnD" Click="btnAlphaNumeric_Click">D</Button>
+            <Button Grid.Column="4" Name="btnF" Click="btnAlphaNumeric_Click">F</Button>
+            <Button Grid.Column="5" Name="btnG" Click="btnAlphaNumeric_Click">G</Button>
+            <Button Grid.Column="6" Name="btnH" Click="btnAlphaNumeric_Click">H</Button>
+            <Button Grid.Column="7" Name="btnJ" Click="btnAlphaNumeric_Click">J</Button>
+            <Button Grid.Column="8" Name="btnK" Click="btnAlphaNumeric_Click">K</Button>
+            <Button Grid.Column="9" Name="btnL" Click="btnAlphaNumeric_Click">L</Button>
+            <Button Grid.Column="10" Name="btnSemiColon" Click="btnAlphaNumeric_Click">;</Button>
+            <Button Grid.Column="11" Name="btnApostrophe" Click="btnAlphaNumeric_Click">'</Button>
+            <Button Grid.Column="12" Name="btnEnter" Click="Enter_Click" Tag="6">Enter</Button>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <ToggleButton Name="btnShift" Checked="Shift_Click" Unchecked="Shift_Click" Margin="4">Shift</ToggleButton>
+            <Button Grid.Column="1" Name="btnZ" Click="btnAlphaNumeric_Click">Z</Button>
+            <Button Grid.Column="2" Name="btnX" Click="btnAlphaNumeric_Click">X</Button>
+            <Button Grid.Column="3" Name="btnC" Click="btnAlphaNumeric_Click">C</Button>
+            <Button Grid.Column="4" Name="btnV" Click="btnAlphaNumeric_Click">V</Button>
+            <Button Grid.Column="5" Name="btnB" Click="btnAlphaNumeric_Click">B</Button>
+            <Button Grid.Column="6" Name="btnN" Click="btnAlphaNumeric_Click">N</Button>
+            <Button Grid.Column="7" Name="btnM" Click="btnAlphaNumeric_Click">M</Button>
+            <Button Grid.Column="8" Name="btnComma" Click="btnAlphaNumeric_Click">,</Button>
+            <Button Grid.Column="9" Name="btnPeriod" Click="btnAlphaNumeric_Click">.</Button>
+            <Button Grid.Column="10" Name="btnBackSlash" Click="btnAlphaNumeric_Click">/</Button>
+            <Button Grid.Column="11" Name="btnUp" Click="btnAlphaNumeric_Click" Tag="24">Up</Button>
+            <Button Grid.Column="13" Name="btnPageUp" Click="btnAlphaNumeric_Click" Tag="19">PgUp</Button>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <ToggleButton Name="btnCtrl" Checked="Ctrl_Click" Unchecked="Ctrl_Click" Margin="4">Ctrl</ToggleButton>
+            <Button Grid.Column="1" Name="btnWin">Win</Button>
+            <Button Grid.Column="2" Grid.ColumnSpan="6" Name="btnSpace" Click="btnAlphaNumeric_Click" Content=" "/>
+            <Button Grid.Column="8" Name="btnIns" Click="btnAlphaNumeric_Click" Tag="31">Ins</Button>
+            <Button Grid.Column="9" Name="btnDel" Click="btnAlphaNumeric_Click" Tag="32">Del</Button>
+            <Button Grid.Column="10" Name="btnLeft" Click="btnAlphaNumeric_Click" Tag="23">Lt</Button>
+            <Button Grid.Column="11" Name="btnDown" Click="btnAlphaNumeric_Click" Tag="26">Dn</Button>
+            <Button Grid.Column="12" Name="btnRight" Click="btnAlphaNumeric_Click" Tag="25">Rt</Button>
+            <Button Grid.Column="13" Name="btnPageDown" Click="btnAlphaNumeric_Click" Tag="20">PgDn</Button>
+        </Grid>
+    </StackPanel>
+</UserControl>

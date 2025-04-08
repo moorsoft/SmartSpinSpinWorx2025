@@ -1,0 +1,30 @@
+﻿<Window x:Class="SmartSpin.Dialogs.Home"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SmartSpin.Dialogs"
+        mc:Ignorable="d"
+         Background="{StaticResource WindowBackgroundBrush}"
+        FontSize="18"
+        Title="Home" Height="380" Width="660" Activated="Window_Activated">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="lblInOutAxisStatus" Margin="20,0,0,0" VerticalAlignment="Center" Content="" />
+        <Label x:Name="lblLeftRightAxisStatus" Margin="20,0,0,0" VerticalAlignment="Center" Grid.Row="1" Content="" />
+        <Label x:Name="lblBAxisStatus" Margin="20,0,0,0" VerticalAlignment="Center" Grid.Row="2" Content=""/>
+        <Label x:Name="lblVAxisStatus" Margin="20,0,0,0" VerticalAlignment="Center" Grid.Row="3" Content=""/>
+        <Label x:Name="lblHAxisStatus" Margin="20,0,0,0" VerticalAlignment="Center" Grid.Row="4" Content=""/>
+        <Label x:Name="lbl7AxisStatus" Margin="20,0,0,0" VerticalAlignment="Center" Grid.Row="5" Content=""/>
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Center" Grid.Row="10" VerticalAlignment="Center" Width="130" Height="45" Click="btnCancel_Click"/>
+
+    </Grid>
+</Window>
