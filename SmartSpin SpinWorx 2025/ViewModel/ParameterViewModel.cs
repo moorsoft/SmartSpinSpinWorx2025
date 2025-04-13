@@ -2,11 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using SmartSpin.Dialogs;
 using SmartSpin.Hardware;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartSpin.ViewModel
 {
@@ -27,39 +22,34 @@ namespace SmartSpin.ViewModel
         [RelayCommand]
         public void ChangeParameter()
         {
-            if (SettingValue is bool)
+            if (SettingValue is bool b)
             {
-                SettingValue = !(bool)SettingValue;
-                Machine.setupWriteValue(this.SettingsPath, this.Label, SettingValue.ToString());
-                Machine.SaveSetupFile();
+                SettingValue = !b;
+                Machine.Setupfile.SetupWriteValue(this.SettingsPath, this.Label, b);
             }
-            else if (SettingValue is int)
+            else if (SettingValue is int i)
             {
-                double d = (int)SettingValue;
+                double d = i;
                 if (Calculator.ShowCalculator(ref d, "Enter Value"))
                 {
                     SettingValue = (int)d;
-                    Machine.setupWriteValue(this.SettingsPath, this.Label, SettingValue.ToString());
-                    Machine.SaveSetupFile();
+                    Machine.Setupfile.SetupWriteValue(this.SettingsPath, this.Label, (int)d);
                 }
             }
-            else if (SettingValue is double)
+            else if (SettingValue is double d)
             {
-                double d = (double)SettingValue;
                 if (Calculator.ShowCalculator(ref d, "Enter Value"))
                 {
                     SettingValue = d;
-                    Machine.setupWriteValue(this.SettingsPath, this.Label, SettingValue.ToString());
-                    Machine.SaveSetupFile();
+                    Machine.Setupfile.SetupWriteValue(this.SettingsPath, this.Label, d);
                 }
             }
-            else if (SettingValue is string)
+            else if (SettingValue is string s)
             {
-                if (EditDialog.Show("Enter value", "Change Parameter", SettingValue as string, out string NewValue) ?? false)
+                if (EditDialog.Show("Enter value", "Change Parameter", s, out string NewValue) ?? false)
                 {
                     SettingValue = NewValue;
-                    Machine.setupWriteValue(this.SettingsPath, this.Label, SettingValue.ToString());
-                    Machine.SaveSetupFile();
+                    Machine.Setupfile.SetupWriteValue(this.SettingsPath, this.Label, NewValue);
                 }
             }
         }

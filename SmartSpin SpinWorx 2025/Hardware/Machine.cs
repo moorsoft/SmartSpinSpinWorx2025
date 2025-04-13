@@ -6,8 +6,9 @@ using SmartSpin.ViewModel;
 using System;
 using System.Diagnostics;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading;
-using System.Xml;
 
 namespace SmartSpin.Hardware
 {
@@ -129,6 +130,7 @@ namespace SmartSpin.Hardware
 
     public static class Machine
     {
+        private const string SetupFilename = "setup.json";
 
         private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
@@ -154,8 +156,8 @@ namespace SmartSpin.Hardware
 
         public static event EventHandler FinishedPlayBack;
 
-        private static XmlDocument setupfile = new XmlDocument();
-       public static bool Simulation { get; private set; } = true;
+        internal static readonly MachineSettings Setupfile = new(SetupFilename);
+        public static bool Simulation { get; private set; } = true;
         public static string ControllerFirmwareVersion { get; private set; }
 
         private static bool PlayingStatus;
@@ -182,7 +184,7 @@ namespace SmartSpin.Hardware
         public static int RecordedSamples { get; private set; }
         private static SampledProfile RecordStorage;
 
-       private static PlaySequenceEnum PlaySequence;
+        private static PlaySequenceEnum PlaySequence;
 
         public static int ProfileIndex;
 
@@ -250,72 +252,31 @@ namespace SmartSpin.Hardware
             return 0;
         }
 
-        private static string setupfilename = String.Empty;
-
-        internal static void SaveSetupFile()
+        internal static Controller CreateController(IServiceProvider _serviceProvider, string node)
         {
-            setupfile.Save(setupfilename);
-        }
-
-        internal static bool setupReadBool(string item, bool defaultValue)
-        {
-            XmlNode foundNode = setupfile.SelectSingleNode(item);
-            if (foundNode == null)
-                return defaultValue;
-            else
-                return Convert.ToBoolean(foundNode.InnerXml);
-        }
-
-        internal static void setupWriteValue(string XPath, string NodeName, string value)
-        {
-            XmlNode xn = setupfile.SelectSingleNode(XPath);
-            // if no node Path was found then just ignore it
-            if (xn == null) return;
-
-            XmlNode xne = setupfile.SelectSingleNode(XPath + "/" + NodeName);
-            // child wasn't found so create it
-            if (xne == null)
-            {
-                XmlElement newElem = setupfile.CreateElement(NodeName);
-                xn.AppendChild(newElem);
-            }
-            xne = setupfile.SelectSingleNode(XPath + "/" + NodeName);
-            if (xne != null)
-            {
-                xne.InnerText = value;
-                using (XmlTextWriter writer = new XmlTextWriter(setupfilename, Encoding.UTF8))
-                {
-                    writer.Formatting = Formatting.Indented;
-                    setupfile.Save(writer);
-                }
-            }
-        }
-
-        internal static Controller CreateController(IServiceProvider _serviceProvider, XmlDocument setupfile, string node)
-        {
-            XmlNode foundNode = setupfile.SelectSingleNode(node);
+            var foundNode = Setupfile.GetNode(node);
             if (foundNode == null)
             {
                 return null;
             }
             Controller controller = _serviceProvider.GetRequiredService<Controller>();
 
-            foundNode = setupfile.SelectSingleNode($"{node}/IP");
+            foundNode = Setupfile.GetNode($"{node}.IP");
             if (foundNode != null)
             {
-                controller.SetEthernetControllerLink(foundNode.InnerXml);
+                controller.SetEthernetControllerLink((string)foundNode);
             }
             else
             {
-                foundNode = setupfile.SelectSingleNode($"{node}/USBNode");
+                foundNode = Setupfile.GetNode($"{node}.USBNode");
                 if (foundNode != null)
                 {
-                    short Node = short.Parse(foundNode.InnerXml);
+                    short Node = short.Parse((string)foundNode);
                     controller.SetUSBControllerLink(Node);
                 }
                 else
                 {
-                    foundNode = setupfile.SelectSingleNode($"{node}/ControllerVirtual");
+                    foundNode = Setupfile.GetNode($"{node}.ControllerVirtual");
                     if (foundNode != null)
                     {
                         controller.SetVirtualControllerLink();
@@ -343,15 +304,13 @@ namespace SmartSpin.Hardware
             return controller;
         }
 
-        internal static void SetupLink(IServiceProvider _serviceProvider, string SetupFileName)
+        internal static void SetupLink(IServiceProvider _serviceProvider)
         {
-            setupfilename = SetupFileName;
-            setupfile.Load(setupfilename);
+            JsonNode MachineParams = Setupfile.GetNode("setup.Machine");
+            Parameters = new ParametersViewModel(MachineParams);
 
-            Parameters = new ParametersViewModel(setupfile.SelectSingleNode("setup/Machine"));
-
-            XmlNode foundNode = setupfile.SelectSingleNode("setup/Machine/TotalAxes");
-            Globals.TotalAxes = Convert.ToInt32(foundNode.InnerXml);
+            var TotalAxes = MachineParams["TotalAxes"];
+            Globals.TotalAxes = TotalAxes.GetValue<int>();
 
             FrontFormerAttached = Parameters.CreateParameter("FrontFormerAttached", false);
             TopFormerAttached = Parameters.CreateParameter("TopFormerAttached", false);
@@ -376,7 +335,8 @@ namespace SmartSpin.Hardware
             DriveStatus = new int[Globals.MAX_AXES];
             for (int i = 0; i < Globals.MAX_AXES; i++)
             {
-                foundNode = setupfile.SelectSingleNode($"setup/axis{i}");
+                var nodeName = $"setup.axis{i}";
+                var foundNode = Setupfile.GetNode(nodeName);
                 if (foundNode == null)
                 {
                     //Axes[i] = new ControllerAxis(controller, foundNode, i);
@@ -384,13 +344,13 @@ namespace SmartSpin.Hardware
                 }
                 else
                 {
-                    var controller = CreateController(_serviceProvider, setupfile, $"setup/axis{i}");
+                    var controller = CreateController(_serviceProvider, nodeName);
 
-                    XmlNode servoNode = foundNode.SelectSingleNode("Servo");
                     string ServoType = String.Empty;
+                    var servoNode = Setupfile.GetNode($"{nodeName}.Servo");
                     if (servoNode != null)
                     {
-                        ServoType = servoNode.InnerXml;
+                        ServoType = (string)servoNode;
                     }
                     switch (ServoType.ToUpper()) {
                         case "ABB" :
@@ -447,9 +407,9 @@ namespace SmartSpin.Hardware
                 }
             }
 
-            var spindleController = CreateController(_serviceProvider, setupfile, "setup/Spindle");
-            SpindleAxis = new Spindle(spindleController, setupfile.SelectSingleNode("setup/Spindle"));
-            TopFormer = new Former(setupfile.SelectSingleNode("setup/TopFormer"));
+            var spindleController = CreateController(_serviceProvider, "setup.Spindle");
+            SpindleAxis = new Spindle(spindleController, Setupfile.GetNode("setup.Spindle"));
+            TopFormer = new Former(Setupfile.GetNode("setup.TopFormer"));
             if (!Simulation)
             {
                 DownloadParameters();
@@ -557,19 +517,17 @@ namespace SmartSpin.Hardware
         }
 
 
-
-        private static bool? metric;
+        private static bool metric;
         public static bool Metric
         {
             get
             {
-                metric ??= setupReadBool("setup/Machine/Metric", true);
-                return metric ?? true;
+                return Setupfile.SetupReadBool("setup.Machine.Metric", true);
             }
             set
             {
                 metric = value;
-                setupWriteValue("setup/Machine", "Metric", metric.ToString());
+                Setupfile.SetupWriteValue("setup.Machine", "Metric", metric);
             }
         }
 

@@ -15,7 +15,6 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Threading;
-using System.Xml.Linq;
 
 namespace SmartSpin.ViewModel
 {
@@ -25,7 +24,7 @@ namespace SmartSpin.ViewModel
         private readonly ILogger logger;
 
         internal DateTime DisableMachineDelay = DateTime.MaxValue;
-        private DispatcherTimer dispatcherTimer = new DispatcherTimer();
+        private readonly DispatcherTimer dispatcherTimer = new DispatcherTimer();
 
         private bool ContinuousPlay = false;
 
@@ -422,7 +421,7 @@ namespace SmartSpin.ViewModel
                 double T = 0;
                 for (int i = 1; i <= 10; i++)
                 {
-                    T = T + ((double)Machine.CurrentProgram.MemS[i].TotalSamples * (100 / Machine.CurrentProgram.MemS[i].PlaybackSpeed));
+                    T += ((double)Machine.CurrentProgram.MemS[i].TotalSamples * (100 / Machine.CurrentProgram.MemS[i].PlaybackSpeed));
                     SettingTotalPlaybackTime = SamplesToSecs(T);
                 }
             }
@@ -1230,6 +1229,7 @@ namespace SmartSpin.ViewModel
             UpdateUnitsName();
         }
 
+        [RelayCommand]
         public void ChangeParameter(ParameterViewModel x)
         {
             x.ChangeParameter();

@@ -2,7 +2,8 @@
 using SmartSpin.Support;
 using System;
 using System.IO;
-using System.Xml;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace SmartSpin.Hardware
 {
@@ -23,7 +24,7 @@ namespace SmartSpin.Hardware
 
         public bool InvertDAC = false;
 
-        public HydraulicAxis(Controller _controller, XmlNode setupNode, int axno) : base(_controller, setupNode, axno)
+        public HydraulicAxis(Controller _controller, JsonNode setupNode, int axno) : base(_controller, setupNode, axno)
         {
             KP = (float)Parameters.CreateParameter("KP", "f2", 0);
             VFFPlus = (float)Parameters.CreateParameter("VFFPlus", "f2", 0);
@@ -34,7 +35,7 @@ namespace SmartSpin.Hardware
             InvertEncoder = Parameters.CreateParameter("InvertEncoder", false);
             InvertDAC = Parameters.CreateParameter("InvertDAC", false);
 
-            VFFFileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"SmartSpinVFF{axno}.xml");
+            VFFFileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"SmartSpinVFF{axno}.json");
 
             ReadVFFTable();
 
@@ -85,26 +86,33 @@ namespace SmartSpin.Hardware
             {
                 try
                 {
-                    XmlNode data;
-                    XmlDocument setupfile = new XmlDocument();
-                    setupfile.Load(VFFFileName);
-                    VFFPlusTable[0] = VFFPlus;
-                    VFFMinusTable[0] = VFFMinus;
-                    for (int i = 1; i < VFFPlusTable.Length; i++)
+                    JsonNode setupfile = JsonNode.Parse(File.ReadAllText(VFFFileName));
+                    if ((setupfile["VFFPlus"] is JsonArray arrayPlus) && (setupfile["VFFMinus"] is JsonArray arrayMinus))
                     {
-                        data = setupfile.SelectSingleNode("VFFTable/VFFPlus/Value" + i.ToString());
-                        if (data == null)
-                            VFFPlusTable[i] = VFFPlusTable[i - 1];
-                        else
-                            VFFPlusTable[i] = Convert.ToSingle(data.InnerXml);
-                        data = setupfile.SelectSingleNode("VFFTable/VFFMinus/Value" + i.ToString());
-                        if (data == null)
-                            VFFMinusTable[i] = VFFMinusTable[i - 1];
-                        else
-                            VFFMinusTable[i] = Convert.ToSingle(data.InnerXml);
+                        VFFPlusTable[0] = VFFPlus;
+                        VFFMinusTable[0] = VFFMinus;
+                        for (int i = 1; i < VFFPlusTable.Length; i++)
+                        {
+                            if (i < arrayPlus.Count)
+                            {
+                                VFFPlusTable[i] = arrayPlus[i]?.GetValue<float>() ?? VFFPlus;
+                            }
+                            else
+                            {
+                                VFFPlusTable[i] = VFFPlusTable[i - 1];
+                            }
+                            if (i < arrayMinus.Count)
+                            {
+                                VFFMinusTable[i] = arrayMinus[i]?.GetValue<float>() ?? VFFMinus;
+                            }
+                            else
+                            {
+                                VFFMinusTable[i] = VFFMinusTable[i - 1];
+                            }
+                        }
+                        VFFPlusTable[0] = VFFPlusTable[1];
+                        VFFMinusTable[0] = VFFMinusTable[1];
                     }
-                    VFFPlusTable[0] = VFFPlusTable[1];
-                    VFFMinusTable[0] = VFFMinusTable[1];
                 }
                 finally
                 {
@@ -145,27 +153,20 @@ namespace SmartSpin.Hardware
         {
             try
             {
-                XmlDocument setupfile = new XmlDocument();
-                XmlElement elemDocument = setupfile.CreateElement("VFFTable");
-                XmlElement elemPlus = setupfile.CreateElement("VFFPlus");
-                XmlElement elemMinus = setupfile.CreateElement("VFFMinus");
+                var plusArray = new JsonArray();
+                var minusArray = new JsonArray();
+
                 for (int i = 1; i < 19; i++)
                 {
-
-                    XmlElement elem = setupfile.CreateElement("Value" + i.ToString());
-                    XmlText text = setupfile.CreateTextNode(VFFPlusTable[i].ToString("F4"));
-                    elemPlus.AppendChild(elem);
-                    elemPlus.LastChild.AppendChild(text);
-
-                    elem = setupfile.CreateElement("Value" + i.ToString());
-                    text = setupfile.CreateTextNode(VFFMinusTable[i].ToString("F4"));
-                    elemMinus.AppendChild(elem);
-                    elemMinus.LastChild.AppendChild(text);
+                    plusArray.Add(VFFPlusTable[i]);
+                    minusArray.Add(VFFMinusTable[i]);
                 }
-                elemDocument.AppendChild(elemPlus);
-                elemDocument.AppendChild(elemMinus);
-                setupfile.AppendChild(elemDocument);
-                setupfile.Save(VFFFileName);
+
+                JsonNode setupfile = new JsonObject();
+                setupfile["VFFPlus"] = plusArray;
+                setupfile["VFFMinus"] = minusArray;
+
+                File.WriteAllText(VFFFileName, setupfile.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
             }
             finally
             {
@@ -189,15 +190,15 @@ namespace SmartSpin.Hardware
             double CurrentVel = 0;
             do
             {
-                CurrentVel = CurrentVel + NewAccel;
+                CurrentVel += NewAccel;
                 if (CurrentVel > NewVel) CurrentVel = NewVel;
                 DistanceToGo = Math.Abs(CurrentPos - MoveTo);
                 DecelVel = Math.Sqrt(2 * NewAccel * DistanceToGo);
                 if (DecelVel < CurrentVel) CurrentVel = DecelVel;
                 if (MoveTo > MoveFrom)
-                    CurrentPos = CurrentPos + Math.Abs(CurrentVel);
+                    CurrentPos += Math.Abs(CurrentVel);
                 else
-                    CurrentPos = CurrentPos - Math.Abs(CurrentVel);
+                    CurrentPos -= Math.Abs(CurrentVel);
 
                 if ((MoveTo > MoveFrom) & (CurrentPos > MoveTo)) CurrentPos = MoveTo;
                 if ((MoveTo < MoveFrom) & (CurrentPos < MoveTo)) CurrentPos = MoveTo;

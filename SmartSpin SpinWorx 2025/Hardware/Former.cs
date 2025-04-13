@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
+﻿using System.Text.Json.Nodes;
 
 namespace SmartSpin.Hardware
 {
@@ -15,16 +10,19 @@ namespace SmartSpin.Hardware
 
         public readonly ControllerAxis VAxis;
 
-        public Former(XmlNode setupNode)
+        public Former(JsonNode setupNode)
         {
             FormerAvail = (setupNode != null);
-            XmlNode data;
             if (FormerAvail)
             {
-                data = setupNode.SelectSingleNode("HAxis");
-                if (data != null) HAxis = Machine.Axes[Convert.ToInt32(data.InnerXml)];
-                data = setupNode.SelectSingleNode("VAxis");
-                if (data != null) VAxis = Machine.Axes[Convert.ToInt32(data.InnerXml)];
+                if (setupNode["HAxis"] is JsonNode haxis)
+                {
+                    HAxis = Machine.Axes[(int)haxis];
+                }
+                if (setupNode["VAxis"] is JsonNode vaxis)
+                {
+                    HAxis = Machine.Axes[(int)vaxis];
+                }
             }
         }
 

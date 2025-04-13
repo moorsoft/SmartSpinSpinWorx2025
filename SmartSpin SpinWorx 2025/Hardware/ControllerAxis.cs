@@ -1,6 +1,6 @@
 ﻿using SmartSpin.ViewModel;
 using System;
-using System.Xml;
+using System.Text.Json.Nodes;
 
 namespace SmartSpin.Hardware
 {
@@ -8,7 +8,7 @@ namespace SmartSpin.Hardware
     {
         protected readonly Controller controller;
 
-        protected readonly XmlNode SetupNode;
+        protected readonly JsonNode SetupNode;
 
         public readonly int axisno;
 
@@ -26,7 +26,7 @@ namespace SmartSpin.Hardware
 
         public readonly ParametersViewModel Parameters;
 
-        public ControllerAxis(Controller _controller, XmlNode setupNode, int axno)
+        public ControllerAxis(Controller _controller, JsonNode setupNode, int axno)
         {
             controller = _controller;
             axisno = axno;

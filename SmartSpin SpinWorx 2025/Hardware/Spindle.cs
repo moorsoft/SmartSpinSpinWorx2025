@@ -1,7 +1,7 @@
 ﻿using SmartSpin.Support;
 using SmartSpin.ViewModel;
 using System;
-using System.Xml;
+using System.Text.Json.Nodes;
 
 namespace SmartSpin.Hardware
 {
@@ -24,12 +24,11 @@ namespace SmartSpin.Hardware
 
         public ParametersViewModel Parameters;
 
-        internal void ProcessSetupFile(XmlNode setupNode)
+        internal void ProcessSetupFile(JsonNode setupNode)
         {
             SpindleAvail = (setupNode != null);
 
-            XmlNode data;
-            if (SpindleAvail)
+           if (SpindleAvail)
             {
                 Parameters = new ParametersViewModel(setupNode);
 
@@ -48,17 +47,23 @@ namespace SmartSpin.Hardware
 
                 for (int i = 1; i < 4; i++)
                 {
-                    data = setupNode.SelectSingleNode(String.Format("Die{0}Accel", i));
-                    if (data != null) Accel[i] = (int)(Convert.ToDouble(data.InnerXml) * 10);
-                    data = setupNode.SelectSingleNode(String.Format("Die{0}Decel", i));
-                    if (data != null) Decel[i] = (int)(Convert.ToDouble(data.InnerXml) * 10);
-                    data = setupNode.SelectSingleNode(String.Format("Die{0}Braking", i));
-                    if (data != null) Braking[i] = (int)(Convert.ToDouble(data.InnerXml));
+                    if (setupNode[$"Die{i}Accel"] is JsonNode accel)
+                    {
+                        Accel[i] = (int)((double)accel * 10);
+                    }
+                    if (setupNode[$"Die{i}Decel"] is JsonNode decel)
+                    {
+                        Decel[i] = (int)((double)decel * 10);
+                    }
+                    if (setupNode[$"Die{i}Braking"] is JsonNode braking)
+                    {
+                        Braking[i] = (int)((double)braking * 10);
+                    }
                 }
             }
         }
 
-        public Spindle(Controller? _controller, XmlNode setupNode)
+        public Spindle(Controller? _controller, JsonNode setupNode)
         {
             controller = _controller;
 

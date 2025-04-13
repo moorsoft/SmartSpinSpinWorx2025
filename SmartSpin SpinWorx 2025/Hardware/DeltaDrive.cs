@@ -1,4 +1,5 @@
 using System;
+using System.Text.Json.Nodes;
 using System.Xml;
 
 namespace SmartSpin.Hardware
@@ -37,7 +38,7 @@ namespace SmartSpin.Hardware
 
         private byte NodeId = 1;
 
-        public DeltaDrive(Controller _controller, XmlNode setupNode, int axno) : base(_controller, setupNode, axno) { }
+        public DeltaDrive(Controller _controller, JsonNode setupNode, int axno) : base(_controller, setupNode, axno) { }
 
         #region Connection routines
 

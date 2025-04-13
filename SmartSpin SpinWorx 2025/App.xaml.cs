@@ -35,7 +35,7 @@ namespace SmartSpin
             logger.Info("App_Startup");
 
             // Load the splash screen
-            Startup startup = new Startup();
+            Startup startup = new();
             startup.Show();
 
             try

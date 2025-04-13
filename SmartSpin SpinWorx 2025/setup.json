@@ -1,0 +1,83 @@
+{
+  "_type": "SmartSpin Machine setup file",
+  "_customer": "SpinWorx 2025",
+  "setup": {
+    "Machine": {
+      "TotalAxes": 4,
+      "FrontFormerAttached": false,
+      "TopFormerAttached": false,
+      "CenterAttached": false,
+      "CanChangeHead": false,
+      "BackStopAttached": false,
+      "DontHome": false,
+      "Metric": true,
+      "HoldHeadSignal": true
+    },
+    "axis0": {
+      "Servo": "Hydraulic",
+      "IP": "192.168.0.1",
+      "Letter": "1",
+      "KP": 8,
+      "NullPlus": 3300,
+      "NullMinus": -3800,
+      "DisplayMultiplier": 200,
+      "Accel": 50,
+      "Vel": 500,
+      "Tolerance": 20,
+      "SwapJogButtons": false,
+      "SwapJogButtonLocations": false
+    },
+    "axis1": {
+      "Servo": "Hydraulic",
+      "IP": "192.168.0.2",
+      "Letter": "2",
+      "KP": 8,
+      "NullPlus": 2500,
+      "NullMinus": -3300,
+      "DisplayMultiplier": 200,
+      "Accel": 50,
+      "Vel": 500,
+      "Tolerance": 20,
+      "SwapJogButtons": false,
+      "SwapJogButtonLocations": false
+    },
+    "axis2": {
+      "_type": "Left-Right Axis. Home is away from spindle. Negative toward spindle",
+      "Servo": "ABB",
+      "IP": "192.168.0.1",
+      "Letter": "Z",
+      "DisplayMultiplier": 100,
+      "Accel": 3000,
+      "Vel": 40,
+      "MaxVelocity": 400,
+      "JogFactor": 20,
+      "SwapJogButtons": true,
+      "SwapJogButtonLocations": true,
+      "MinusLimit": -580,
+      "PlusLimit": 0,
+      "MoveAfterHome": 0,
+      "HomeOffset": 0,
+      "HomePlus": true,
+      "HoldEnableOn": true
+    },
+    "axis3": {
+      "_type": "In-Out Axis",
+      "Servo": "ABB",
+      "IP": "192.168.0.2",
+      "Letter": "X",
+      "DisplayMultiplier": 100,
+      "Accel": 3000,
+      "Vel": 40,
+      "MaxVelocity": 400,
+      "JogFactor": 20,
+      "SwapJogButtons": false,
+      "SwapJogButtonLocations": false,
+      "MinusLimit": -530,
+      "PlusLimit": 10,
+      "MoveAfterHome": 0,
+      "HomeOffset": 0,
+      "HomePlus": true,
+      "HoldEnableOn": true
+    }
+  }
+}

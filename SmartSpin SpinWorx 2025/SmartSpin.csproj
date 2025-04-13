@@ -37,9 +37,8 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="setup.xml">
+    <None Update="setup.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -151,10 +150,10 @@
     <Resource Include="Resources\Symbol Red Stop.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="SmartSpinVFF1.xml">
+    <None Update="SmartSpinVFF0.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="SmartSpinVFF0.xml">
+    <None Update="SmartSpinVFF1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

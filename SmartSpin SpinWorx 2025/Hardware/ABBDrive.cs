@@ -1,6 +1,6 @@
 using System;
+using System.Text.Json.Nodes;
 using System.Threading;
-using System.Xml;
 
 namespace SmartSpin.Hardware
 {
@@ -37,7 +37,7 @@ namespace SmartSpin.Hardware
 
         private byte NodeId = 1;
 
-        public ABBDrive(Controller _controller, XmlNode setupNode, int axno) : base(_controller, setupNode, axno) { }
+        public ABBDrive(Controller _controller, JsonNode setupNode, int axno) : base(_controller, setupNode, axno) { }
 
         #region Connection Routines
 
@@ -83,20 +83,34 @@ namespace SmartSpin.Hardware
                 Open(Parameters.CreateParameter("IP", ""), (byte)1);
             }
 
-            XmlNode foundNode = SetupNode.SelectSingleNode("MinusLimit");
-            if (foundNode != null) this.SetMinusLimit((float)(Parameters.CreateParameter("MinusLimit", "f1", 0) * DisplayMultiplier));
-            foundNode = SetupNode.SelectSingleNode("PlusLimit");
-            if (foundNode != null) this.SetPlusLimit((float)(Parameters.CreateParameter("PlusLimit", "f1", 0) * DisplayMultiplier));
-            foundNode = SetupNode.SelectSingleNode("MoveAfterHome");
-            if (foundNode != null) this.SetMoveAfterHome((float)(Parameters.CreateParameter("MoveAfterHome", "f1", 0) * DisplayMultiplier));
-            foundNode = SetupNode.SelectSingleNode("HomeOffset");
-            if (foundNode != null) this.SetHomeOffset((float)(Parameters.CreateParameter("HomeOffset", "f1", 0) * DisplayMultiplier));
-            foundNode = SetupNode.SelectSingleNode("Accel");
-            if (foundNode != null) this.SetAccel((float)(Parameters.CreateParameter("Accel", "f1", 0) * DisplayMultiplier));
-            foundNode = SetupNode.SelectSingleNode("Decel");
-            if (foundNode != null) this.SetDecel((float)(Parameters.CreateParameter("Decel", "f1", 0) * DisplayMultiplier));
-            foundNode = SetupNode.SelectSingleNode("MaxVelocity");
-            if (foundNode != null) this.SetMaxVelocity((float)(Parameters.CreateParameter("MaxVelocity", "f1", 0) * DisplayMultiplier));
+            if (SetupNode["MinusLimit"] != null)
+            { 
+                this.SetMinusLimit((float)(Parameters.CreateParameter("MinusLimit", "f1", 0) * DisplayMultiplier)); 
+            }
+            if (SetupNode["PlusLimit"] != null)
+            {
+                this.SetPlusLimit((float)(Parameters.CreateParameter("PlusLimit", "f1", 0) * DisplayMultiplier));
+            }
+            if (SetupNode["MoveAfterHome"] != null)
+            {
+                this.SetMoveAfterHome((float)(Parameters.CreateParameter("MoveAfterHome", "f1", 0) * DisplayMultiplier));
+            }
+            if (SetupNode["HomeOffset"] != null)
+            {
+                this.SetHomeOffset((float)(Parameters.CreateParameter("HomeOffset", "f1", 0) * DisplayMultiplier));
+            }
+            if (SetupNode["Accel"] != null)
+            {
+                this.SetAccel((float)(Parameters.CreateParameter("Accel", "f1", 0) * DisplayMultiplier));
+            }
+            if (SetupNode["Decel"] != null)
+            {
+                this.SetDecel((float)(Parameters.CreateParameter("Decel", "f1", 0) * DisplayMultiplier));
+            }
+            if (SetupNode["MaxVelocity"] != null)
+            {
+                this.SetMaxVelocity((float)(Parameters.CreateParameter("MaxVelocity", "f1", 0) * DisplayMultiplier));
+            }
             HoldEnable = Parameters.CreateParameter("HoldEnableOn", true);
             JogFactor = Parameters.CreateParameter("JogFactor", 1);
             HomePlus = Parameters.CreateParameter("HomePlus", false);

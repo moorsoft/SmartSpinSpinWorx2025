@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using System.Xml;
+using System.Text.Json.Nodes;
 
 namespace SmartSpin.Hardware
 {
@@ -14,7 +14,7 @@ namespace SmartSpin.Hardware
 
         protected bool moveBetweenMemories = true;
 
-        public ServoDrive(Controller _controller, XmlNode setupNode, int axno) : base(_controller, setupNode, axno)
+        public ServoDrive(Controller _controller, JsonNode setupNode, int axno) : base(_controller, setupNode, axno)
         {
             Parameters.CreateParameter("MinusLimit", "f1", 0);
             Parameters.CreateParameter("PlusLimit", "f1", 0);

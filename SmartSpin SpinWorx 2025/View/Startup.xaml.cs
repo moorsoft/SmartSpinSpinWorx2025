@@ -45,12 +45,12 @@ namespace SmartSpin.View
             bool AnyFailed = false;
             Items.Add(new DisplayItem() { Text = "Reading Machine configuration", Background = DisplayItem.greenBrush });
             ProcessPendingEvents(); // Simulate DoEvents
-            string SettingsFileName = Path.GetDirectoryName(System.AppDomain.CurrentDomain.BaseDirectory);
+            //string SettingsFileName = Path.GetDirectoryName(System.AppDomain.CurrentDomain.BaseDirectory);
             // SettingsFileName+Path.DirectorySeparatorChar+
 
             Items.Add(new DisplayItem() { Text = "Initialising Controller", Background = DisplayItem.greenBrush });
             ProcessPendingEvents(); // Simulate DoEvents
-            Machine.SetupLink(_serviceProvider, "setup.xml");
+            Machine.SetupLink(_serviceProvider);
 
             Items.Add(new DisplayItem() { Text = "Startup Complete", Background = (AnyFailed ? DisplayItem.redBrush : DisplayItem.greenBrush) });
             ProcessPendingEvents(); // Simulate DoEvents

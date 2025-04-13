@@ -1,45 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
+using System.Text.Json.Nodes;
 
 namespace SmartSpin.ViewModel
 {
-    public class ParametersViewModel : ObservableCollection<ParameterViewModel>
+    public class ParametersViewModel(JsonNode _setupNode) : ObservableCollection<ParameterViewModel>
     {
-        private string XmlPath;
-
-        private XmlNode setupNode;
-
-        public ParametersViewModel(XmlNode _setupNode)
-        {
-            setupNode = _setupNode;
-            XmlPath = GetNodePath(_setupNode);
-        }
-
-        private string GetNodePath(XmlNode setupNode)
-        {
-            if (setupNode is XmlDocument)
-            {
-                return "";
-            }
-            else
-            {
-                return GetNodePath(setupNode.ParentNode) + '/' + setupNode.Name;
-            }
-        }
+        private readonly string XmlPath = _setupNode.GetPath();
 
         internal string CreateParameter(string Label, string defaultValue)
         {
-            string v;
-            XmlNode data = setupNode.SelectSingleNode(Label);
-            if (data != null)
+            string v = String.Empty;
+            if (_setupNode[Label] is JsonNode data)
             {
-                v = data.InnerXml;
+                v = data.ToString();
             }
             else
             {
@@ -51,11 +26,10 @@ namespace SmartSpin.ViewModel
 
         internal int CreateParameter(string Label, int defaultValue)
         {
-            int v;
-            XmlNode data = setupNode.SelectSingleNode(Label);
-            if (data != null)
+            int v = 0;
+            if (_setupNode[Label] is JsonNode data)
             {
-                v = Convert.ToInt32(data.InnerXml);
+                v = (int)data;
             }
             else
             {
@@ -68,11 +42,10 @@ namespace SmartSpin.ViewModel
 
         internal double CreateParameter(string Label, string format, double defaultValue)
         {
-            double v;
-            XmlNode data = setupNode.SelectSingleNode(Label);
-            if (data != null)
+            double v = 0;
+            if (_setupNode[Label] is JsonNode data)
             {
-                v = Convert.ToDouble(data.InnerXml);
+                v = (double)data;
             }
             else
             {
@@ -84,11 +57,10 @@ namespace SmartSpin.ViewModel
 
         internal bool CreateParameter(string Label, bool defaultValue)
         {
-            bool v;
-            XmlNode data = setupNode.SelectSingleNode(Label);
-            if (data != null)
+            bool v = false;
+            if (_setupNode[Label] is JsonNode data)
             {
-                v = Convert.ToBoolean(data.InnerXml);
+                v = (bool)data;
             }
             else
             {
